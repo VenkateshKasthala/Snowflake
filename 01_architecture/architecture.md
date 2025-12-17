@@ -1,6 +1,8 @@
 # Snowflake
 
-Snowflake is a fully managed, cloud‑native SaaS data platform that re‑architects the traditional data warehouse by cleanly separating centralized cloud storage, elastic compute (virtual warehouses), and a shared services/metadata layer, enabling scalable, high‑concurrency analytics and data applications at low operational overhead.
+Snowflake is a cloud-native data platform that completely re-architects how traditional data warehouses work by decoupling storage, compute and metadata services into three independent layers that scale and are billed seperately.
+
+This seperation gives us flexible scaling, high concurrency and fine grained cost control.
 
 ## Cloud‑native & SaaS
 
