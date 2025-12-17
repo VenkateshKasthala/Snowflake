@@ -1,6 +1,7 @@
 # Compute Warehouses
 
 A virtual warehouse in Snowflake is a named, MPP compute cluster that provides the CPU, memory, and temporary storage required to execute queries, load data, and perform DML.
+
 It does not store data itself; instead, it reads and writes data in the centralized storage layer and can be started, stopped, or resized independently.
 
 ## Key Characteristics
@@ -41,9 +42,11 @@ It does not store data itself; instead, it reads and writes data in the centrali
 
 - Suspending warehouses when not in use is the main way to save money.
 
+
+
 ## Warehouse properties
 
-WAREHOUSE_SIZE – XS / S / M / L / XL / etc. (how powerful the cluster is).
+WAREHOUSE_SIZE – XS / S / M / L / XL / etc.
 
 AUTO_SUSPEND – seconds of inactivity before the warehouse stops automatically.
 
