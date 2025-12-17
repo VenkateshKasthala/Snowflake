@@ -35,4 +35,4 @@ External stage (S3): An external stage is a Snowflake object that points to file
 
 ## File format
 
-A reusable object that tells Snowflake how to interpret files (CSV, JSON, Parquet, etc.), including delimiters, header rows, compression, and other options.
+A reusable object that tells Snowflake how to interpret files (CSV, JSON, Parquet, etc.), what type it is, what seperator it uses, how headers are handled, and how to treat nulls, quotes etc.
