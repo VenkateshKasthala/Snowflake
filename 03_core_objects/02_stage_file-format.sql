@@ -16,7 +16,9 @@ CREATE OR REPLACE TABLE CUSTOMERS_RAW (
 CREATE OR REPLACE FILE FORMAT FF_CUSTOMERS_CSV
   TYPE = CSV
   SKIP_HEADER = 1
-  FIELD_DELIMITER = ',';
+  FIELD_DELIMITER = ','
+  FIELD_OPTIONALLY_ENCLOSED_BY = '"'
+  NULL_IF = ('', 'NULL', 'null');
 
 -- 4. Stage file from local machine (run in Snowsight/worksheet)
 --PUT file:///path/to/customers.csv @~/customers_stage;
