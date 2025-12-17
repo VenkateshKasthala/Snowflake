@@ -6,12 +6,12 @@ It uses a file format plus options (errors, validation, truncation, etc.) to con
 
 ## Basic syntax (load into table)
 
-'''COPY INTO <table_name>
+```COPY INTO <table_name>
    FROM <stage_or_query>
    FILE_FORMAT = (FORMAT_NAME = <file_format_name>)
    ON_ERROR = <option>
    VALIDATION_MODE = <option>;
-'''
+```
 
 ## ON_ERROR options
 
@@ -43,8 +43,9 @@ Skips file after a certain number of error rows.​​
 When rows are skipped (with CONTINUE / SKIP_FILE), error details can be retrieved via:
 VALIDATE(COPY INTO ...) table function.​
 
-INFORMATION_SCHEMA.LOAD_HISTORY and COPY_HISTORY views.​
-'''
+INFORMATION_SCHEMA.LOAD_HISTORY and COPY_HISTORY views.
+​
+```
 SELECT *
 FROM TABLE(
   VALIDATE(
@@ -52,7 +53,8 @@ FROM TABLE(
     JOB_ID     => '_last'    -- or a specific load job ID
   )
 );
-'''
+```
+
 VALIDATE returns rows that failed to load for the specified job: error message, column, row data, etc.​
 Useful when you ran COPY with ON_ERROR=CONTINUE and want to see what was rejected.​
 
@@ -66,12 +68,12 @@ What VALIDATION_MODE does
 - This is mainly used to find bad records (type issues, wrong delimiters, column count mismatches) before running the real load.​​
 - No data is loaded into the target table while VALIDATION_MODE is present.
 
----
+```
  COPY INTO my_table
  FROM @my_stage
  FILE_FORMAT = (FORMAT_NAME = 'my_fmt')
  VALIDATION_MODE = RETURN_n_ROWS | RETURN_ERRORS | RETURN_ALL_ERRORS;
----
+```
 
 RETURN_n_ROWS
 If data is valid, returns up to n sample rows that would be loaded.
