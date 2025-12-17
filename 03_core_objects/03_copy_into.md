@@ -6,12 +6,12 @@ It uses a file format plus options (errors, validation, truncation, etc.) to con
 
 ## Basic syntax (load into table)
 
----COPY INTO <table_name>
+'''COPY INTO <table_name>
    FROM <stage_or_query>
    FILE_FORMAT = (FORMAT_NAME = <file_format_name>)
    ON_ERROR = <option>
    VALIDATION_MODE = <option>;
----
+'''
 
 ## ON_ERROR options
 
@@ -44,15 +44,15 @@ When rows are skipped (with CONTINUE / SKIP_FILE), error details can be retrieve
 VALIDATE(COPY INTO ...) table function.​
 
 INFORMATION_SCHEMA.LOAD_HISTORY and COPY_HISTORY views.​
-
---- SELECT *
+'''
+SELECT *
 FROM TABLE(
   VALIDATE(
     TABLE_NAME => 'SALES_RAW',
     JOB_ID     => '_last'    -- or a specific load job ID
   )
 );
----
+'''
 VALIDATE returns rows that failed to load for the specified job: error message, column, row data, etc.​
 Useful when you ran COPY with ON_ERROR=CONTINUE and want to see what was rejected.​
 
