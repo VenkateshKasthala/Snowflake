@@ -1,0 +1,40 @@
+-- -- Create a simple XS warehouse
+CREATE OR REPLACE WAREHOUSE WH_TRAINING
+  WAREHOUSE_SIZE = 'XSMALL'
+  AUTO_SUSPEND = 60           -- seconds of inactivity
+  AUTO_RESUME = TRUE
+  INITIALLY_SUSPENDED = TRUE;
+
+
+
+-- Multi Cluster Warehouse
+
+CREATE OR REPLACE WAREHOUSE WH_REPORTING
+  WAREHOUSE_SIZE = 'SMALL'
+  MIN_CLUSTER_COUNT = 1
+  MAX_CLUSTER_COUNT = 3
+  SCALING_POLICY = 'STANDARD'
+  AUTO_SUSPEND = 300
+  AUTO_RESUME = TRUE;
+
+
+-- Show all warehouses you can see
+SHOW WAREHOUSES;
+
+-- Describe a specific warehouse
+DESC WAREHOUSE WH_TRAINING;
+
+-- Change size or settings
+ALTER WAREHOUSE WH_TRAINING
+  SET WAREHOUSE_SIZE = 'SMALL',
+      AUTO_SUSPEND = 120;
+
+-- Start and stop
+ALTER WAREHOUSE WH_TRAINING RESUME;
+ALTER WAREHOUSE WH_TRAINING SUSPEND;
+
+-- -- test change
+
+-- -- forcing git change
+
+

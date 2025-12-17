@@ -1,0 +1,55 @@
+-- 1. Create (or choose) warehouse, db, schema
+USE WAREHOUSE WH_TRAINING;
+USE DATABASE PROD_ANALYTICS;
+USE SCHEMA STAGE;
+
+-- 2. Create target table
+CREATE OR REPLACE TABLE CUSTOMERS_RAW (
+  CUSTOMER_ID   STRING,
+  CUSTOMER_NAME STRING,
+  EMAIL         STRING,
+  CITY          STRING,
+  CREATED_AT    STRING
+);
+
+-- 3. Create file format
+CREATE OR REPLACE FILE FORMAT FF_CUSTOMERS_CSV
+  TYPE = CSV
+  SKIP_HEADER = 1
+  FIELD_DELIMITER = ',';
+
+-- 4. Stage file from local machine (run in Snowsight/worksheet)
+--PUT file:///path/to/customers.csv @~/customers_stage;
+
+-- 5. Load into table
+COPY INTO CUSTOMERS_RAW
+FROM @~/customers_stage
+FILE_FORMAT = (FORMAT_NAME = FF_CUSTOMERS_CSV)
+ON_ERROR = CONTINUE;
+
+-- 6. Verify
+SELECT * FROM CUSTOMERS_RAW LIMIT 10;
+
+-- External stage
+CREATE OR REPLACE STAGE STG_S3_CUSTOMERS
+  URL = 's3://company-raw-data/customers/'
+  STORAGE_INTEGRATION = INT_AWS_S3_RAW
+  FILE_FORMAT = FF_CUSTOMERS_CSV
+  COMMENT = 'External stage for customers CSV files in S3';
+
+DESC STAGE STG_S3_CUSTOMERS;
+
+-- Validate without loading (dry run)
+COPY INTO CUSTOMERS_RAW
+FROM @STG_S3_CUSTOMERS
+FILE_FORMAT = (FORMAT_NAME = FF_CUSTOMERS_CSV)
+VALIDATION_MODE = RETURN_ERRORS;
+
+
+COPY INTO CUSTOMERS_RAW
+FROM @STG_S3_CUSTOMERS
+FILE_FORMAT = (FORMAT_NAME = FF_CUSTOMERS_CSV)
+PATTERN = '.*\\.csv'
+ON_ERROR = CONTINUE;
+
+
