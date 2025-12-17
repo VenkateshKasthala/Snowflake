@@ -42,8 +42,6 @@ It does not store data itself; instead, it reads and writes data in the centrali
 
 - Suspending warehouses when not in use is the main way to save money.
 
-
-
 ## Warehouse properties
 
 WAREHOUSE_SIZE – XS / S / M / L / XL / etc.
