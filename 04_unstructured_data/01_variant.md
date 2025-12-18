@@ -136,6 +136,7 @@ SELECT
 ### Raw + curated model
 
 Common pattern
+
 Raw table: one VARIANT column holding the entire document (often plus load metadata like file_name, load_ts).​
 Curated tables/views: extract specific fields from VARIANT into typed columns using SELECT with path expressions and FLATTEN.​
 
@@ -153,9 +154,14 @@ Normalize into columns/tables when:Fields are stable and heavily used in filters
 
 ### Quick mental checklist
 
-When you see semi‑structured data in Snowflake, think:
+When you see semi‑structured data in Snowflake:
+
 Storage: use VARIANT columns in a raw table.​
+
 Access: : and [] for paths, always ::TYPE cast.​
+
 Arrays: use FLATTEN + lateral join to explode.​
+
 Reshape: use OBJECT_CONSTRUCT, ARRAY_CONSTRUCT, ARRAY_AGG.​
+
 Model: raw VARIANT layer + one or more curated relational layers/views.
