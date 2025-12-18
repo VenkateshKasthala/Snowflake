@@ -57,7 +57,8 @@ Select one or more paths from VARIANT and cast them with aliases, then treat the
 
 Example pattern (structure, not tied to a specific table name):
 
-```SELECT
+```
+SELECT
   payload:id::NUMBER              AS id,
   payload:user.name::STRING       AS user_name,
   payload:status::STRING          AS status,
@@ -84,7 +85,8 @@ Use in the FROM clause with a lateral join: FROM table, TABLE(FLATTEN(...)) f.�
 
 General pattern:
 
-```SELECT
+```
+SELECT
   t.id,
   f.value                         AS element_variant,
   f.value:some_field::STRING      AS some_field
@@ -103,7 +105,8 @@ Useful for: returning nested JSON from relational data or building request paylo
 
 Example pattern:
 
-```SELECT
+```
+SELECT
       OBJECT_CONSTRUCT(
       'id',      id,
       'name',    name,
@@ -120,7 +123,8 @@ ARRAY_AGG(expr) – aggregates values into an array, often combined with GROUP B
 
 Example pattern:
 
-```SELECT
+```
+SELECT
     dept_id,
     ARRAY_AGG(emp_name) AS employees
   FROM employees
@@ -155,4 +159,3 @@ Access: : and [] for paths, always ::TYPE cast.​
 Arrays: use FLATTEN + lateral join to explode.​
 Reshape: use OBJECT_CONSTRUCT, ARRAY_CONSTRUCT, ARRAY_AGG.​
 Model: raw VARIANT layer + one or more curated relational layers/views.
-
