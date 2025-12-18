@@ -62,67 +62,76 @@ Example pattern (structure, not tied to a specific table name):
   payload:user.name::STRING       AS user_name,
   payload:status::STRING          AS status,
   payload:details.item_count::INT AS item_count
-FROM some_raw_table;```
- 
+FROM some_raw_table;
+```
+
 ## Working with arrays
 
 Arrays commonly appear as lists of items, tags, or nested objects.
 
-## Basic array functions
+### Basic array functions
+
 ARRAY_SIZE(variant_expr) – number of elements in an array.​
-
 Direct indexing: payload:items[0], payload:items[1].
-
 Indexing is 0‑based; out‑of‑range accesses return NULL.​
 
-## FLATTEN – turning arrays into rows
+### FLATTEN – turning arrays into rows
+
 FLATTEN expands an array within VARIANT into multiple rows so each element can be processed individually.​
 
 Key points: FLATTEN(INPUT => <variant_array>) returns a table with columns such as VALUE, INDEX, PATH.
 Use in the FROM clause with a lateral join: FROM table, TABLE(FLATTEN(...)) f.​
 
 General pattern:
+
 ```SELECT
   t.id,
   f.value                         AS element_variant,
   f.value:some_field::STRING      AS some_field
 FROM raw_table t,
-     TABLE(FLATTEN(INPUT => t.payload:array_field)) AS f;```
+     TABLE(FLATTEN(INPUT => t.payload:array_field)) AS f;
+```
 
 ## Constructing and reshaping semi‑structured data
+
 Snowflake has functions for building JSON‑like structures from relational columns.​
 
-## OBJECT functions
-OBJECT_CONSTRUCT(key1, value1, key2, value2, ...) – builds a VARIANT object.
+### OBJECT functions
 
+OBJECT_CONSTRUCT(key1, value1, key2, value2, ...) – builds a VARIANT object.
 Useful for: returning nested JSON from relational data or building request payloads.
 
 Example pattern:
+
 ```SELECT
-    OBJECT_CONSTRUCT(
-    'id',      id,
-    'name',    name,
-    'city',    city,
-    'salary',  salary
-  ) AS employee_obj
-FROM employees;```
+      OBJECT_CONSTRUCT(
+      'id',      id,
+      'name',    name,
+      'city',    city,
+      'salary',  salary
+    ) AS employee_obj
+  FROM employees;
+```
 
 ## ARRAY functions
-ARRAY_CONSTRUCT(value1, value2, ...) – builds an array VARIANT.
 
+ARRAY_CONSTRUCT(value1, value2, ...) – builds an array VARIANT.
 ARRAY_AGG(expr) – aggregates values into an array, often combined with GROUP BY.​
 
 Example pattern:
+
 ```SELECT
     dept_id,
     ARRAY_AGG(emp_name) AS employees
   FROM employees
-  GROUP BY dept_id;```
+  GROUP BY dept_id;
+```
 
 ## Design patterns with semi‑structured data
-#### Raw + curated model
-Common pattern:
 
+### Raw + curated model
+
+Common pattern
 Raw table: one VARIANT column holding the entire document (often plus load metadata like file_name, load_ts).​
 Curated tables/views: extract specific fields from VARIANT into typed columns using SELECT with path expressions and FLATTEN.​
 
@@ -131,6 +140,7 @@ Keeps the original document unchanged and available for future needs.
 Curated structures are easy to query and index with clustering if needed.
 
 ### When to keep as VARIANT vs. normalize
+
 Keep as VARIANT when:Schema changes frequently or is partially unknown.
                      You only need a few attributes occasionally.​
 
