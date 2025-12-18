@@ -39,7 +39,6 @@ It does not store data itself; instead, it reads and writes data in the centrali
 ### Cost model
 
 - Compute cost is based on warehouse size and time running (credits per hour).
-
 - Suspending warehouses when not in use is the main way to save money.
 
 ## Warehouse properties

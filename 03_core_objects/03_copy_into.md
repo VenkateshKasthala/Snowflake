@@ -69,7 +69,7 @@ What VALIDATION_MODE does
 - No data is loaded into the target table while VALIDATION_MODE is present.
 
 ```
- COPY INTO my_table
+COPY INTO my_table
  FROM @my_stage
  FILE_FORMAT = (FORMAT_NAME = 'my_fmt')
  VALIDATION_MODE = RETURN_n_ROWS | RETURN_ERRORS | RETURN_ALL_ERRORS;
