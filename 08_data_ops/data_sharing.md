@@ -53,9 +53,8 @@ ALTER SHARE sales_data_share REMOVE ACCOUNTS = 'ABC12345';
 
 ## 3. Consumer Workflow (Accessing Shared Data)
 
-```
 Step 1: Create Database from Share
-sql
+```
 -- Consumer runs this in their account
 CREATE DATABASE sales_shared_db 
 FROM SHARE <provider_account>.sales_data_share;
