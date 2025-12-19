@@ -6,16 +6,15 @@ Data Sharing in Snowflake enables secure, read-only access to data across accoun
 
 Data sharing works through Secure Data Shares - logical views of your data that providers publish and consumers query directly from your storage. Key principles:​
 
-#### *Zero-copy*: Consumers see your live data; no duplication.
+#### **Zero-copy**: Consumers see your live data; no duplication.
 
-#### *Read-only*: Consumers cannot modify provider data.
+#### **Read-only**: Consumers cannot modify provider data.
 
-#### *Cross-account/region*: Share data globally across Snowflake accounts.
+#### **Cross-account/region**: Share data globally across Snowflake accounts.
 
-#### *Granular security*: Share specific tables/views, not entire databases.​
+#### ***Granular security**: Share specific tables/views, not entire databases.​
 
 Two main sharing patterns exist: direct account-to-account shares and Snowflake Marketplace listings.​
-
 2. Provider Workflow (Publishing Data)
 Step 1: Create a Share
 sql
