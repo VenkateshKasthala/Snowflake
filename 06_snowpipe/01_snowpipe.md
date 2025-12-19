@@ -16,6 +16,9 @@ Provides near real‑time availability of file‑based data with a simple credit
 
 Handles file tracking and duplicate protection, simplifying ingestion pipelines.
 
+Combined with streams and tasks, Snowpipe forms the front door of a continuous ELT pipeline:
+
+files land --> Snowpipe loads --> Streams Captures Changes --> task applies transformations.
 
 ## Main components
 
@@ -156,5 +159,3 @@ Configure cloud notifications (SNS/SQS, Event Grid, Pub/Sub) if using auto‑ing
 
 Validate with:
 SHOW PIPES, DESC PIPE, and LOAD_HISTORY / COPY_HISTORY.​
-.​
-
