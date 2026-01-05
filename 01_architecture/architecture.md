@@ -46,7 +46,7 @@ It also powers advanced features such as Time Travel, Fail-safe, data sharing, g
 
 ## How the three layers work together
 
-When a query runs, the cloud services layer parses and optimizes it, consults metadata to identify relevant micro‑partitions in storage, and schedules the work on a chosen virtual warehouse.​
+When a query runs, the cloud services layer parses and optimizes it, consults metadata to identify relevant micro‑partitions in storage, and schedules the work on chosen virtual warehouse.​
 
 The virtual warehouse nodes read only the needed micro‑partitions from storage, process them in parallel, and return results; frequently accessed results can be cached at the compute and services layers to speed up repeat queries.​
 
@@ -58,4 +58,4 @@ Separation of storage and compute: scale and pay for each independently; large s
 
 Elastic, multi‑cluster MPP: automatically handle concurrency spikes by adding clusters while keeping queries fast.​
 
-Managed, cloud‑native control plane: offloads infrastructure, tuning, and metadata management, enabling features like Time Travel, data sharing, and fine‑grained security without extra components.​
+Managed, cloud‑native control plane: offloads infrastructure, tuning, and metadata management, enabling features like Time Travel, data sharing, and fine‑grained security without extra components.
