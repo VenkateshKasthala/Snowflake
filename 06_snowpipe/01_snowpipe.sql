@@ -1,5 +1,5 @@
 
--- 1. Target table and file format
+-- Target table and file format
 
 
 CREATE OR REPLACE TABLE EVENTS_RAW (
@@ -10,7 +10,7 @@ CREATE OR REPLACE TABLE EVENTS_RAW (
 CREATE OR REPLACE FILE FORMAT FF_EVENTS_JSON
   TYPE = JSON;
 
--- 2. External stage for S3 bucket
+-- External stage for S3 bucket
 -- 
 -- Assume:
 --   - S3 bucket: s3://company-events/raw/
@@ -26,7 +26,7 @@ CREATE OR REPLACE STAGE EXT_STAGE_EVENTS
 -- Optional: check that Snowflake can see files
 LIST @EXT_STAGE_EVENTS;
 
--- 3. Pipe definition (Snowpipe)
+-- Pipe definition (Snowpipe)
 -- 
 -- This defines *how* files from the stage are loaded into EVENTS_RAW.
 -- Snowpipe uses this COPY INTO command when it ingests new files.
@@ -45,7 +45,7 @@ ON_ERROR = CONTINUE;
 -- - AUTO_INGEST = TRUE tells Snowflake this pipe will be driven by cloud notifications (S3 event -> SNS/SQS -> Snowpipe).
 
 
--- 4. Managing the pipe
+-- Managing the pipe
 
 -- Show all pipes available to the current role
 SHOW PIPES;
@@ -58,7 +58,7 @@ ALTER PIPE PIPE_EVENTS_RAW SET PIPE_EXECUTION_PAUSED = TRUE;   -- pause
 ALTER PIPE PIPE_EVENTS_RAW SET PIPE_EXECUTION_PAUSED = FALSE;  -- resume
 
 ==
--- 5. Manual trigger (if not using auto-ingest)
+-- Manual trigger (if not using auto-ingest)
 -- If AUTO_INGEST = FALSE, you can trigger Snowpipe via:
 --   - Snowflake REST API / client libraries (preferred in real setups), or
 --   - CALL SYSTEM$PIPE_STATUS, SYSTEM$PIPE_FORCE_RESUME, etc.
@@ -68,7 +68,7 @@ ALTER PIPE PIPE_EVENTS_RAW SET PIPE_EXECUTION_PAUSED = FALSE;  -- resume
 SELECT SYSTEM$PIPE_STATUS('PIPE_EVENTS_RAW');
 
 
--- 6. Monitoring load history
+-- Monitoring load history
 -- Check which files Snowpipe has loaded for a table
 
 SELECT *

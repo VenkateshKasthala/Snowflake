@@ -50,7 +50,7 @@ AUTO_INGEST = TRUE: Snowpipe is triggered by cloud notifications (S3 → SNS/SQS
 
 AUTO_INGEST = FALSE: Snowpipe loads when you call the Snowpipe REST API or use tools/SDKs that call it (useful when you want explicit control).​
 
-## Snowpipe load flow 
+## Snowpipe load flow
 
 Files are written into an external stage bucket/path (for example s3://mybucket/path).​
 
@@ -138,7 +138,7 @@ Lots of very small files can increase overhead; grouping them into reasonable si
 
 ### Good practices
 
-Aim for reasonable file sizes (not thousands of tiny files per minute) to avoid overhead per file.​
+Aim for reasonable file sizes (not thousands of small files per minute) to avoid overhead per file.​
 
 Use AUTO_INGEST when your cloud storage can emit events; use the REST API when you want to trigger ingestion explicitly or when events are not available.​
 
