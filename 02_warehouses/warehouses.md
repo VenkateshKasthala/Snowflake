@@ -51,7 +51,7 @@ AUTO_RESUME – whether a query automatically starts the warehouse if it is susp
 
 MIN_CLUSTER_COUNT / MAX_CLUSTER_COUNT – min and max clusters for multi‑cluster mode.
 
-SCALING_POLICY – e.g., STANDARD  or ECONOMY.
+SCALING_POLICY – STANDARD  or ECONOMY.
 
 INITIALLY_SUSPENDED – whether the warehouse starts in a suspended state when created.
 
