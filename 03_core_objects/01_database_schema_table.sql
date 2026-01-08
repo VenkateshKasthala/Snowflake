@@ -16,9 +16,8 @@ DESC DATABASE PROD_ANALYTICS;
 -- Set current database in the session
 USE DATABASE PROD_ANALYTICS;
 
--- Drop a database (be careful!)
+-- Drop a database
 DROP DATABASE IF EXISTS STAGE_RAW;
-
 
 
 

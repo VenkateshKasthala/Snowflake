@@ -2,10 +2,10 @@
 
 A stage is a named location where data files are stored before being loaded into Snowflake tables or after being unloaded. Stages can be internal (inside Snowflake) or external (pointing to cloud storage like S3, Azure Blob, GCS).
 
-
-
 ## Why we need stages
+
 Stages are critical because Snowflake does not allow you to "insert" raw external files directly into a permanent table.
+
 They provide several essential functions:
 ## 1. Security and Access Control
    ### Secure Credential Management:
@@ -18,8 +18,9 @@ They provide several essential functions:
    Users can inspect, validate, and even transform data (e.g., reordering columns or casting types) using SQL before it ever touches a permanent table.
 ## 4. File Tracking and idempotency
    Stages decouple where files live from how snowflake loads them, giving a consistent interface(@stage) regardless of internal vs external location.
-   
+
 ## Internal stages
+
 Managed and stored entirely within Snowflake's storage infrastructure.
 Use Case - Loading files from a local machine or temporary processing.
 

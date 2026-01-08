@@ -1,9 +1,9 @@
--- 1. Create (or choose) warehouse, db, schema
+
 USE WAREHOUSE WH_TRAINING;
 USE DATABASE PROD_ANALYTICS;
 USE SCHEMA STAGE;
 
--- 2. Create target table
+
 CREATE OR REPLACE TABLE CUSTOMERS_RAW (
   CUSTOMER_ID   STRING,
   CUSTOMER_NAME STRING,
@@ -12,7 +12,7 @@ CREATE OR REPLACE TABLE CUSTOMERS_RAW (
   CREATED_AT    STRING
 );
 
--- 3. Create file format
+--  Create file format
 CREATE OR REPLACE FILE FORMAT FF_CUSTOMERS_CSV
   TYPE = CSV
   SKIP_HEADER = 1
@@ -20,16 +20,16 @@ CREATE OR REPLACE FILE FORMAT FF_CUSTOMERS_CSV
   FIELD_OPTIONALLY_ENCLOSED_BY = '"'
   NULL_IF = ('', 'NULL', 'null');
 
--- 4. Stage file from local machine (run in Snowsight/worksheet)
+-- Stage file from local machine (run in Snowsight/worksheet)
 --PUT file:///path/to/customers.csv @~/customers_stage;
 
--- 5. Load into table
+-- Load into table
 COPY INTO CUSTOMERS_RAW
 FROM @~/customers_stage
 FILE_FORMAT = (FORMAT_NAME = FF_CUSTOMERS_CSV)
 ON_ERROR = CONTINUE;
 
--- 6. Verify
+-- Verify
 SELECT * FROM CUSTOMERS_RAW LIMIT 10;
 
 -- External stage
@@ -41,7 +41,7 @@ CREATE OR REPLACE STAGE STG_S3_CUSTOMERS
 
 DESC STAGE STG_S3_CUSTOMERS;
 
--- Validate without loading (dry run)
+-- Validate without loading
 COPY INTO CUSTOMERS_RAW
 FROM @STG_S3_CUSTOMERS
 FILE_FORMAT = (FORMAT_NAME = FF_CUSTOMERS_CSV)

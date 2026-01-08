@@ -58,7 +58,7 @@ FROM TABLE(
 VALIDATE returns rows that failed to load for the specified job: error message, column, row data, etc.​
 Useful when you ran COPY with ON_ERROR=CONTINUE and want to see what was rejected.​
 
-## VALIDATION_MODE (dry run / diagnostics)
+## VALIDATION_MODE
 
 VALIDATION_MODE is an option on the COPY INTO command that lets you check files for load errors without actually loading any data.​
 

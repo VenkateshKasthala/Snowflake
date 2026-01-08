@@ -41,8 +41,8 @@ Temporary table: lives only for the session; data is dropped when the session en
 
 Account = entire Snowflake environment for your company.​
 
-Database = big container for a domain or environment (e.g., PROD_ANALYTICS, FINANCE, SANDBOX).​
+Database = big container for a domain or environment (PROD_ANALYTICS, FINANCE, SANDBOX).​
 
-Schema = sub‑container inside a database for organizing related objects (e.g., RAW, STAGE, SALES, MARKETING).​
+Schema = sub‑container inside a database for organizing related objects (RAW, STAGE, SALES, MARKETING).​
 
 Table = actual rows of data, where queries read/write.
