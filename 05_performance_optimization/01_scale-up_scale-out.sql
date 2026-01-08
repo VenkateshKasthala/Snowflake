@@ -3,10 +3,10 @@ USE ROLE SYSADMIN;
 USE DATABASE OUR_FIRST_DB;
 USE SCHEMA PUBLIC;
 
--- 1. Dedicated warehouses per workload / team
+-- Dedicated warehouses per workload / team
 -- Idea:
---   - Separate warehouses for ETL, BI, Data Science, etc.
---   - Isolates performance & cost per workload. [web:249][web:251]
+-- Separate warehouses for ETL, BI, Data Science, etc.
+-- Isolates performance & cost per workload. [web:249][web:251]
 
 -- ETL warehouse: heavy batch jobs, low concurrency
 CREATE OR REPLACE WAREHOUSE WH_ETL
@@ -34,7 +34,7 @@ CREATE OR REPLACE WAREHOUSE WH_DS
 
 SHOW WAREHOUSES;
 
--- 2. Scaling UP – make a single cluster bigger
+-- Scaling UP – make a single cluster bigger
 
 -- Scale up = increase WAREHOUSE_SIZE (XS -> S -> M -> L ...). 
 -- Use when individual ETL queries are heavy / spilling and run slowly

@@ -1,6 +1,6 @@
 # Optimization
 
-Snowflake already handles indexing, statistics, and micro‑partitioning automatically; you don’t create indexes or manual partitions.​
+Snowflake already handles indexing, statistics, and micro‑partitioning automatically; we don’t need to create indexes or manual partitions.​
 
 Tuning focuses on:
 
@@ -14,7 +14,7 @@ Writing efficient queries and using features like materialized views or search o
 
 ## Dedicated warehouses per team/workload
 
-You typically create separate warehouses for different teams or workloads (ETL, BI, data science, ad‑hoc) instead of one giant shared warehouse.​
+We typically create separate warehouses for different teams or workloads (ETL, BI, data science, ad‑hoc) instead of one giant shared warehouse.​
 
 Warehouses are isolated from each other. Each has its own compute resources, but they all access the same underlying data.
 

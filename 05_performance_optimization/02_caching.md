@@ -10,7 +10,7 @@ Metadata cache – keeps partition statistics and other metadata for pruning.​
 
 You don’t manage these manually, but you can write queries and design warehouses to benefit from them.
 
-## Result cache (0 compute for repeat queries)
+## Result cache (0 compute for repeated queries)
 
 After a query finishes, its result is stored for 24 hours, tied to:
 
@@ -50,7 +50,7 @@ Write filters in a way that uses the column directly (order_date >= '2025-01-01'
 
 Choose good clustering/ingest patterns so partitions are naturally ordered by commonly filtered columns (date, region).​
 
-### Practical checklist for “using caching”
+### Checklist
 
 For repeated analytics/dashboards:
 Keep query text stable (so the result cache can kick in).​
