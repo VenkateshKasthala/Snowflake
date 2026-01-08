@@ -21,7 +21,7 @@ CREATE OR REPLACE WAREHOUSE WH_REPORTING
 -- Show all warehouses you can see
 SHOW WAREHOUSES;
 
--- Describe a specific warehouse
+-- Describes a specific warehouse
 DESC WAREHOUSE WH_TRAINING;
 
 -- Change size or settings
@@ -33,8 +33,5 @@ ALTER WAREHOUSE WH_TRAINING
 ALTER WAREHOUSE WH_TRAINING RESUME;
 ALTER WAREHOUSE WH_TRAINING SUSPEND;
 
--- -- test change
-
--- -- forcing git change
 
 
