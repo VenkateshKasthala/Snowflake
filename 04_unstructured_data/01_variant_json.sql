@@ -3,7 +3,7 @@
 USE WAREHOUSE WH_TRAINING;
 USE DATABASE OUR_FIRST_DB;
 
--- 0. Setup: stage + file format
+-- stage + file format
 
 CREATE OR REPLACE STAGE EXT_STAGE_JSON_ORDERS
   URL = 's3://company-raw/orders-json/';
@@ -11,7 +11,7 @@ CREATE OR REPLACE STAGE EXT_STAGE_JSON_ORDERS
 CREATE OR REPLACE FILE FORMAT FF_JSON_GENERIC
   TYPE = JSON; 
 
--- 1. Raw table: store full JSON in VARIANT
+-- Raw table: store full JSON in VARIANT
 CREATE OR REPLACE TABLE ORDERS_RAW_JSON (
   RAW VARIANT,
   LOAD_TS TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP()
@@ -25,8 +25,8 @@ ON_ERROR = CONTINUE;
 -- Inspect raw data
 SELECT * FROM ORDERS_RAW_JSON LIMIT 5;
 
--- 2. Basic querying from VARIANT
---    (top‑level fields, simple casting)
+-- Basic querying from VARIANT
+-- (top‑level fields, simple casting)
 
 -- Example fields: order_id, customer_id, status, created_at
 SELECT
@@ -48,7 +48,7 @@ FROM (
 )
 WHERE customer_name IS NOT NULL;
 
--- 3. Nested objects inside VARIANT
+-- Nested objects inside VARIANT
 
 -- View entire nested object
 SELECT RAW:payment AS payment_object
@@ -65,7 +65,7 @@ FROM ORDERS_RAW_JSON;
 -- Chained nesting works for any depth
 -- RAW:level1.level2.level3...
 
--- 4. Arrays and ARRAY_SIZE
+-- Arrays and ARRAY_SIZE
 
 -- Assume RAW:items is an array of line items
 SELECT RAW:items AS items_array
@@ -86,7 +86,7 @@ SELECT
   RAW:items[0].qty::NUMBER                AS first_qty
 FROM ORDERS_RAW_JSON;
 
--- 5. FLATTEN: explode array into rows
+-- FLATTEN: explode array into rows
 
 -- Basic FLATTEN of RAW:items
 SELECT
@@ -101,11 +101,11 @@ FROM ORDERS_RAW_JSON,
 ORDER BY order_id, item_index;
 
 -- Notes:
---  - f.value is a VARIANT representing each item object
---  - f.index is the array position (0‑based)
---  - FLATTEN requires VARIANT/OBJECT/ARRAY input.
+-- f.value is a VARIANT representing each item object
+-- f.index is the array position (0‑based)
+-- FLATTEN requires VARIANT/OBJECT/ARRAY input.
 
--- 6. OUTER / PATH / RECURSIVE options (overview examples)
+-- OUTER / PATH / RECURSIVE options (overview examples)
 
 -- OUTER => TRUE : even if array is empty / null, keep one row
 SELECT
@@ -127,8 +127,8 @@ FROM ORDERS_RAW_JSON,
 -- RECURSIVE => TRUE : walk all sub‑arrays/objects
 -- TABLE(FLATTEN(INPUT => RAW, RECURSIVE => TRUE)) f;
 
--- 7. Building a curated relational table from JSON
--- 7.1 Header-level table (one row per order)
+-- Building a curated relational table from JSON
+-- Header-level table (one row per order)
 CREATE OR REPLACE TABLE ORDERS_CURATED (
   ORDER_ID        NUMBER,
   CUSTOMER_ID     NUMBER,
@@ -154,7 +154,7 @@ FROM ORDERS_RAW_JSON;
 
 SELECT * FROM ORDERS_CURATED LIMIT 20;
 
--- 7.2 Line‑item table (one row per order line)
+-- Line‑item table (one row per order line)
 CREATE OR REPLACE TABLE ORDER_ITEMS_CURATED (
   ORDER_ID   NUMBER,
   LINE_NO    NUMBER,
@@ -177,15 +177,3 @@ SELECT * FROM ORDER_ITEMS_CURATED
 ORDER BY ORDER_ID, LINE_NO
 LIMIT 50;
 
--- 8. Direct inserts using PARSE_JSON / TO_VARIANT (ad‑hoc)
-CREATE OR REPLACE TABLE DEMO_VARIANT_INSERT (V VARIANT);
-
-INSERT INTO DEMO_VARIANT_INSERT (V)
-SELECT PARSE_JSON('{"a":1,"b":[77,88]}'); 
-
-SELECT
-  V:a::NUMBER          AS a,
-  f.index              AS idx,
-  f.value::NUMBER      AS b_element
-FROM DEMO_VARIANT_INSERT,
-     TABLE(FLATTEN(INPUT => V:b)) AS f;
