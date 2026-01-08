@@ -152,7 +152,7 @@ Keep as VARIANT when:Schema changes frequently or is partially unknown.
 Normalize into columns/tables when:Fields are stable and heavily used in filters/joins.
                                    You need strong type guarantees and statistics for performance.​
 
-### Quick mental checklist
+### Cheatsheet
 
 When you see semi‑structured data in Snowflake:
 
@@ -164,4 +164,3 @@ Arrays: use FLATTEN + lateral join to explode.​
 
 Reshape: use OBJECT_CONSTRUCT, ARRAY_CONSTRUCT, ARRAY_AGG.​
 
-Model: raw VARIANT layer + one or more curated relational layers/views.
